@@ -42,7 +42,6 @@ def crawl_data():
         }
         ]
     }
-    print(json_data)
     for i in json_data["intents"]:
         count = 0
         for j in strr:
@@ -53,8 +52,8 @@ def crawl_data():
                     else:
                         for ii in i["answers"]:
                             ii+=", "+strr[count+1]
+                            i["answers"] = [ii]
             count+=1
-    print(json_data)
     f = open("data/UTE.json",'w+', encoding="utf-8")
     f.write(json.dumps(json_data))
     f.close()
