@@ -3,9 +3,20 @@ import requests
 from bs4 import BeautifulSoup
 import json
 def crawl_data():
-    sinhvienPATH = "https://ute.udn.vn/LoaiBoPhan/1/Ban-Giam-hieu.aspx"
-
-    tree = requests.get(sinhvienPATH)
+    BGH_PATH = "https://ute.udn.vn/LoaiBoPhan/1/Ban-Giam-hieu.aspx"
+    sinhvienPATH = "https://sinhvien.ute.udn.vn/default.aspx#"
+    
+    result = requests.get(sinhvienPATH)
+    soup = BeautifulSoup(result.content,"html")
+    data = soup.find("h3",itemprop="name")
+    active = ""
+    for i in data:
+        if i != "\n":
+            if active == "":
+                active+=i.text
+            else:
+                active+=", "+i.text
+    tree = requests.get(BGH_PATH)
     soup = BeautifulSoup(tree.content,"html")
     result = soup.find_all("strong")
     strr = []
@@ -23,9 +34,15 @@ def crawl_data():
             "tag": ["PHÓ HIỆU TRƯỞNG"],
             "questions": ["hiệu phó"],
             "answers" : []
+        },
+        {
+            "tag": ["hoạt động"],
+            "questions": ["hoạt động đang mở","hoạt động","chương trình"],
+            "answers" : [active]
         }
         ]
     }
+    print(json_data)
     for i in json_data["intents"]:
         count = 0
         for j in strr:
