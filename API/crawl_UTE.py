@@ -11,13 +11,6 @@ def crawl_data():
     strr = []
     for i in result:
         strr.append(i.text)
-    strr.remove('Ban Giám hiệu')
-    strr.remove('Lĩnh vực công tác')
-    strr.remove('Quản lý các mảng công tác:')
-    strr.remove('Quản lý các mảng công tác:')
-    strr.remove('Quản lý các mảng công tác:')
-    strr.remove('Khoa Công nghệ số')
-    strr.remove('\xa0')
     for i in strr:
         i = str(i).replace('\xa0',' ')
     json_data = {
@@ -38,7 +31,11 @@ def crawl_data():
         for j in strr:
             for k in i["tag"]:
                 if k == j:
-                    i["answers"].append(strr[count+1])
+                    if i["answers"] == []:
+                        i["answers"].append(strr[count+1])
+                    else:
+                        for ii in i["answers"]:
+                            ii+=", "+strr[count+1]
             count+=1
     print(json_data)
     f = open("data/UTE.json",'w+', encoding="utf-8")
