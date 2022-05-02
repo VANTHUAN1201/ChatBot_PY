@@ -54,6 +54,7 @@ h3 {
     font-size: 17px;
     text-align: right;
     line-height: 30px;
+    margin-left: 20%;
 }
 
 .userText span {
@@ -68,6 +69,7 @@ h3 {
     font-size: 17px;
     text-align: left;
     line-height: 30px;
+    margin-right: 20%;
 }
 
 .botText span {
@@ -81,4 +83,18 @@ h3 {
     bottom: 0;
     right: 0;
     width: 300px;
+}
+
+img {
+    height: 35px;
+    width: 35px;
+    border-radius: 50%/50%;
+    margin-top: 15px;
+    margin-right: 10px;
+}
+
+.bot,
+.students {
+    display: flex;
+    width: 100%;
 }
