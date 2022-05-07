@@ -18,10 +18,7 @@
             <input id="btnAI" type="submit" value="AI là gì?">
         </div>
         <div id="chatbox">
-            <div class="bot">
-                <img src="images/avt_bot.png" alt="avt_bot" srcset="">
-                <p class="botText"><span>Chat với tôi!</span></p>
-            </div>
+            <p class="botText"><img src="images/avt_bot.png" alt="avt_bot"><span>Chat với tôi!</span></p>
         </div>
         <div id="userInput">
             <input id="textInput" type="text" name="msg" placeholder="Message">
@@ -30,9 +27,14 @@
         <script>
             var DB = ""
 
+            function gotoBottom() {
+                var element = document.getElementById('chatbot');
+                element.scrollTop = element.scrollHeight - element.clientHeight;
+            }
+
             function getBotResponse() {
                 var rawText = $("#textInput").val();
-                var userHtml = '<div class="students"><p class="userText"><span>' + rawText + '</span></p><img src="images/avt_bot.png" alt="avt_bot" srcset=""></div>';
+                var userHtml = '<p class="userText"><img src="images/avt_bot.png" alt="avt_user"><span>' + rawText + '</span></p>';
                 $("#textInput").val("");
                 $("#chatbox").append(userHtml);
                 document.getElementById('userInput').scrollIntoView({
@@ -43,13 +45,16 @@
                     msg: rawText,
                     DB: DB
                 }).done(function(data) {
-                    var botHtml = '<p class="botText"><span>' + data + '</span></p>';
+                    var botHtml = '<p class="botText"><img src="images/avt_bot.png" alt="avt_bot"><span>' + data + '</span></p>';
                     $("#chatbox").append(botHtml);
                     document.getElementById('userInput').scrollIntoView({
                         block: 'start',
                         behavior: 'smooth'
+
                     });
+                    gotoBottom();
                 });
+
             }
             $("#textInput").keypress(function(e) {
                 if (e.which == 13) {
