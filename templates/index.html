@@ -2,23 +2,32 @@
 <html>
 
 <head>
-    <link rel="stylesheet" type="text/css" href="static/style.css">
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <meta charset="utf-8">
 </head>
 
 <body>
-    <h1>Chatbot AI - Nhóm 7</h1>
-    <h3>Hỏi tôi nêu bạn có thắc mắc!</h3>
+    <center>
+        <h1>Chatbot AI - Nhóm 7</h1>
+        <h3>Hỏi tôi nêu bạn có thắc mắc!</h3>
+    </center>
     <div>
-        <div>
-            <input id="btnInforGroup" type="submit" value="Thông tin nhóm">
-            <input id="btnInforSchool" type="submit" value="Hỏi về trường ĐHSPKT">
-            <input id="btnWork" type="submit" value="Hỏi về quá trình làm Chatbot AI">
-            <input id="btnAI" type="submit" value="AI là gì?">
-        </div>
         <div id="chatbox">
-            <p class="botText"><img src="images/avt_bot.png" alt="avt_bot"><span>Chat với tôi!</span></p>
+            <div class="container">
+                <div class="botText_container">
+                    <img src="images/avt_bot.png" alt="avt_bot">
+                    <p class="botText"><span>Chat với tôi!</span></p>
+                </div>
+                <div class="tmp"></div>
+            </div>
+            <div class="container">
+                <div class="tmp"></div>
+                <div class="userText_container">
+                    <p class="userText"><span>Chat với tôi!</span></p>
+                    <img src="images/avt_bot.png" alt="avt_bot">
+                </div>
+            </div>
         </div>
         <div id="userInput">
             <input id="textInput" type="text" name="msg" placeholder="Message">
@@ -34,7 +43,7 @@
 
             function getBotResponse() {
                 var rawText = $("#textInput").val();
-                var userHtml = '<p class="userText"><img src="images/avt_bot.png" alt="avt_user"><span>' + rawText + '</span></p>';
+                var userHtml = '<div class="container"><div class="tmp"></div><div class="userText_container"><p class="userText"><span>' + rawText + '</span></p><img src="images/avt_bot.png" alt="avt_bot"></div></div>';
                 $("#textInput").val("");
                 $("#chatbox").append(userHtml);
                 document.getElementById('userInput').scrollIntoView({
@@ -45,7 +54,7 @@
                     msg: rawText,
                     DB: DB
                 }).done(function(data) {
-                    var botHtml = '<p class="botText"><img src="images/avt_bot.png" alt="avt_bot"><span>' + data + '</span></p>';
+                    var botHtml = '<div class="container"><div class="botText_container"><img src="images/avt_bot.png" alt="avt_bot"><p class="botText"><span>' + data + '</span></p></div><div class="tmp"></div></div>';
                     $("#chatbox").append(botHtml);
                     document.getElementById('userInput').scrollIntoView({
                         block: 'start',
@@ -88,8 +97,6 @@
                 $("#chatbox").append(botHtml);
                 DB = "work"
             })
-            var element = document.getElementById('chatbot');
-                element.scrollTop = element.scrollHeight - element.clientHeight;
         </script>
     </div>
 </body>
